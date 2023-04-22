@@ -1,0 +1,132 @@
+
+        config 
+
+        chmod 600 Downloads/mickey-das.pem
+        ssh -i Downloads/mickey-das.pem ubuntu@18.205.133.10
+
+        sudo service mongod start
+        sudo service mongod status
+
+        mkdir -p shard/configrep1 shard/configrep2 shard/configrep3
+
+        NOHUP COMMANDS
+        nohup mongod --configsvr  --port 28041 --bind_ip localhost,ec2-18-205-133-10.compute-1.amazonaws.com --replSet config_repl --dbpath shard/configrep1 &
+        nohup mongod --configsvr  --port 28042 --bind_ip localhost,ec2-18-205-133-10.compute-1.amazonaws.com --replSet config_repl --dbpath shard/configrep2 &
+        nohup mongod --configsvr  --port 28043 --bind_ip localhost,ec2-18-205-133-10.compute-1.amazonaws.com --replSet config_repl --dbpath shard/configrep3 &
+  
+        MONGOSH
+        mongosh --host 18.205.133.10  --port 28041
+        rsconf = { _id: "config_repl", members: [{_id: 0, host: "18.205.133.10:28041"}, {_id: 1, host:"18.205.133.10:28042"}, {_id: 2, host: "18.205.133.10:28043"}]}
+        rs.initiate(rsconf)
+        Wait for 30s before proceeding to rs.status()
+        rs.status()
+        
+
+        shard1 
+
+        chmod 600 Downloads/mickey-das.pem
+        ssh -i Downloads/mickey-das.pem ubuntu@52.204.76.121
+
+        sudo service mongod start
+        sudo service mongod status
+
+        mkdir -p shard/shard1rep1 shard/shard1rep2 shard/shard1rep3
+
+        NOHUP COMMANDS
+        nohup mongod --shardsvr  --port 28081 --bind_ip localhost,ec2-52-204-76-121.compute-1.amazonaws.com --replSet shard1_repl --dbpath shard/shard1rep1 &
+        nohup mongod --shardsvr  --port 28082 --bind_ip localhost,ec2-52-204-76-121.compute-1.amazonaws.com --replSet shard1_repl --dbpath shard/shard1rep2 &
+        nohup mongod --shardsvr  --port 28083 --bind_ip localhost,ec2-52-204-76-121.compute-1.amazonaws.com --replSet shard1_repl --dbpath shard/shard1rep3 &
+  
+        MONGOSH
+        mongosh --host 52.204.76.121  --port 28081
+        rsconf = { _id: "shard1_repl", members: [{_id: 0, host: "52.204.76.121:28081"}, {_id: 1, host:"52.204.76.121:28082"}, {_id: 2, host: "52.204.76.121:28083"}]}
+        rs.initiate(rsconf)
+        Wait for 30s before proceeding to rs.status()
+        rs.status()
+        
+
+        shard2 
+
+        chmod 600 Downloads/mickey-das.pem
+        ssh -i Downloads/mickey-das.pem ubuntu@54.160.193.232
+
+        sudo service mongod start
+        sudo service mongod status
+
+        mkdir -p shard/shard2rep1 shard/shard2rep2 shard/shard2rep3
+
+        NOHUP COMMANDS
+        nohup mongod --shardsvr  --port 29081 --bind_ip localhost,ec2-54-160-193-232.compute-1.amazonaws.com --replSet shard2_repl --dbpath shard/shard2rep1 &
+        nohup mongod --shardsvr  --port 29082 --bind_ip localhost,ec2-54-160-193-232.compute-1.amazonaws.com --replSet shard2_repl --dbpath shard/shard2rep2 &
+        nohup mongod --shardsvr  --port 29083 --bind_ip localhost,ec2-54-160-193-232.compute-1.amazonaws.com --replSet shard2_repl --dbpath shard/shard2rep3 &
+  
+        MONGOSH
+        mongosh --host 54.160.193.232  --port 29081
+        rsconf = { _id: "shard2_repl", members: [{_id: 0, host: "54.160.193.232:29081"}, {_id: 1, host:"54.160.193.232:29082"}, {_id: 2, host: "54.160.193.232:29083"}]}
+        rs.initiate(rsconf)
+        Wait for 30s before proceeding to rs.status()
+        rs.status()
+        
+
+        shard3 
+
+        chmod 600 Downloads/mickey-das.pem
+        ssh -i Downloads/mickey-das.pem ubuntu@54.88.65.220
+
+        sudo service mongod start
+        sudo service mongod status
+
+        mkdir -p shard/shard3rep1 shard/shard3rep2 shard/shard3rep3
+
+        NOHUP COMMANDS
+        nohup mongod --shardsvr  --port 29085 --bind_ip localhost,ec2-54-88-65-220.compute-1.amazonaws.com --replSet shard3_repl --dbpath shard/shard3rep1 &
+        nohup mongod --shardsvr  --port 29086 --bind_ip localhost,ec2-54-88-65-220.compute-1.amazonaws.com --replSet shard3_repl --dbpath shard/shard3rep2 &
+        nohup mongod --shardsvr  --port 29087 --bind_ip localhost,ec2-54-88-65-220.compute-1.amazonaws.com --replSet shard3_repl --dbpath shard/shard3rep3 &
+  
+        MONGOSH
+        mongosh --host 54.88.65.220  --port 29085
+        rsconf = { _id: "shard3_repl", members: [{_id: 0, host: "54.88.65.220:29085"}, {_id: 1, host:"54.88.65.220:29086"}, {_id: 2, host: "54.88.65.220:29087"}]}
+        rs.initiate(rsconf)
+        Wait for 30s before proceeding to rs.status()
+        rs.status()
+        
+
+        mongos 
+
+        chmod 600 Downloads/mickey-das.pem
+        ssh -i Downloads/mickey-das.pem ubuntu@54.90.251.174
+
+        sudo service mongod start
+        sudo service mongod status
+
+        mkdir -p shard/mongosrep1 shard/mongosrep2 shard/mongosrep3
+
+        NOHUP COMMANDS
+        nohup mongod --shardsvr  --port  --bind_ip localhost,ec2-54-90-251-174.compute-1.amazonaws.com --replSet mongos_repl --dbpath shard/mongosrep1 &
+        nohup mongod --shardsvr  --port  --bind_ip localhost,ec2-54-90-251-174.compute-1.amazonaws.com --replSet mongos_repl --dbpath shard/mongosrep2 &
+        nohup mongod --shardsvr  --port  --bind_ip localhost,ec2-54-90-251-174.compute-1.amazonaws.com --replSet mongos_repl --dbpath shard/mongosrep3 &
+  
+        MONGOSH
+        mongosh --host 54.90.251.174  --port 
+        rsconf = { _id: "mongos_repl", members: [{_id: 0, host: "54.90.251.174:"}, {_id: 1, host:"54.90.251.174:"}, {_id: 2, host: "54.90.251.174:"}]}
+        rs.initiate(rsconf)
+        Wait for 30s before proceeding to rs.status()
+        rs.status()
+        
+
+        mongos 
+
+        chmod 600 Downloads/mickey-das.pem
+        ssh -i Downloads/mickey-das.pem ubuntu@54.90.251.174
+
+        nohup mongos --configdb config_repl/ec2-18-205-133-10.compute-1.amazonaws.com:28041,ec2-18-205-133-10.compute-1.amazonaws.com:28042,ec2-18-205-133-10.compute-1.amazonaws.com:28043 --bind_ip localhost,ec2-54-90-251-174.compute-1.amazonaws.com &
+
+        mongosh --host ec2-54-90-251-174.compute-1.amazonaws.com --port 27017
+
+        sh.addShard( "shard1_repl/52.204.76.121:28081,52.204.76.121:28082,52.204.76.121:28083")
+        sh.addShard( "shard2_repl/54.160.193.232:29081,54.160.193.232:29082,54.160.193.232:29083")
+        sh.addShard( "shard3_repl/54.88.65.220:29085,54.88.65.220:29086,54.88.65.220:29087")
+
+        sh.status()
+        
+        

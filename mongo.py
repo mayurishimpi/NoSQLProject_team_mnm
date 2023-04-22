@@ -2,7 +2,7 @@ import pymongo
 
 # Connect to MongoDB
 try:
-    mongos_dns = "ec2-52-42-104-41.us-west-2.compute.amazonaws.com"
+    mongos_dns = "ec2-54-90-251-174.compute-1.amazonaws.com"
     client = pymongo.MongoClient(mongos_dns)
     db = client["yelp"]
     business_collection = db["business"]
@@ -25,7 +25,7 @@ def test_read_collection(col: str) -> None:
     """
     collection = db[col]
 
-    docs = collection.find().limit(10)
+    docs = collection.find().limit(1)
     for doc in docs:
         print(doc)
 
