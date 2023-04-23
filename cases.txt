@@ -1,0 +1,25 @@
+Our Use Cases:
+
+
+
+
+Biz Collection
+1. Create Biz
+2. Update Biz
+3. Retrieve Biz
+4. Find Businesses by category
+5. Find all biz in zip
+6. Find all locations for a biz
+7. Find top k biz with highest stars (we get stars from business?)
+8. Find top k biz with most reviews
+9. Find all biz in the same street
+
+Find all reviews for a business reviewed by a business (a bit intricate)
+
+
+Review Collection
+
+
+User Collection
+Find the top k users that have been yelping the longest. (can't use, need user table)
+Find the top user with the highest (useful+funny+cool rating)

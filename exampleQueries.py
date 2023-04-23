@@ -7,7 +7,13 @@ I'm gonna just throw a bunch of queries that I use from compass into here!
 
 from pymongo import MongoClient
 
-client = MongoClient('mongodb://ec2-54-90-251-174.compute-1.amazonaws.com:27017/')
+#Narinder Server (should be working)
+client = MongoClient("mongodb://ec2-52-42-104-41.us-west-2.compute.amazonaws.com:27017/?tls=false")
+
+
+#Not good, badd
+# client = MongoClient('mongodb://ec2-54-90-251-174.compute-1.amazonaws.com:27017/')
+
 filter={
     'state': 'CA'
 }

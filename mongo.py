@@ -2,7 +2,11 @@ import pymongo
 
 # Connect to MongoDB
 try:
-    mongos_dns = "ec2-54-90-251-174.compute-1.amazonaws.com"
+    # Good
+    mongos_dns = "mongodb://ec2-52-42-104-41.us-west-2.compute.amazonaws.com:27017/?tls=false"
+
+    #Not Good
+    #mongos_dns = "ec2-54-90-251-174.compute-1.amazonaws.com"
     client = pymongo.MongoClient(mongos_dns)
     db = client["yelp"]
     business_collection = db["business"]
@@ -57,7 +61,6 @@ def create_business(b_id, name, addy, city, state, zip, lat, long,
     print(result)
     return result == new_document
 
-
 def find_biz_by_zip(zip_code: str) -> bool:
     """
     Find a Business by a given zip code
@@ -71,7 +74,6 @@ def find_biz_by_zip(zip_code: str) -> bool:
     print(result)
     return result  # whether a result has been found
 
-
 def find_all_biz_locations(name: str) -> bool:
     """
     Find all locations for a business given a name
@@ -82,5 +84,13 @@ def find_all_biz_locations(name: str) -> bool:
     print([biz["zip"] for biz in result])
     return result
 
+def find_biz_by_street(street: str) -> bool:
+    for biz in business_collection.find():
+        l = biz["address"]
 
-
+        print(l)
+        # try:
+        #     if l[l.index(' ')+1 if ' ' in l else 0:] == str:
+        #         print(biz)
+        # except:
+        #     print(l)
