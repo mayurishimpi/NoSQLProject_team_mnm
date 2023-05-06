@@ -8,7 +8,7 @@ I'm gonna just throw a bunch of queries that I use from compass into here!
 from pymongo import MongoClient
 
 #Narinder Server (should be working)
-client = MongoClient("mongodb://ec2-52-42-104-41.us-west-2.compute.amazonaws.com:27017/?tls=false")
+client = MongoClient("mongodb://ec2-52-44-206-90.compute-1.amazonaws.com:27017/?tls=false")
 
 
 #Not good, badd
